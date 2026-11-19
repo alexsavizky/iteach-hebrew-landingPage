@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iTeach Hebrew Teacher Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: one calm column — welcome, four link cards, then the login lookup. Single light theme to sit with the logos. */
+  --bg:#F5F8FB;
+  --surface:#FFFFFF;
+  --ink:#16202A;
+  --muted:#4D5866;
+  --line:#D9E0E7;
+  --accent:#1B6FA8;
+  --accent-soft:#E4F0F9;
+  --pink:#B8325A;
+  --ok:#1E7A4C;
+  --err:#B42318;
+  --font:'Heebo', 'Segoe UI', Arial, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55}
+a{color:var(--accent)}
+.wrap{max-width:880px;margin:0 auto;padding:28px 20px 48px;display:flex;flex-direction:column;gap:36px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+header img.it{height:64px;width:auto;margin-left:-12px}
+header img.pf{height:38px;width:auto}
+.hero{text-align:center;display:flex;flex-direction:column;gap:6px}
+.hero .he{font-size:clamp(40px,7vw,56px);font-weight:800;color:var(--accent);line-height:1.1}
+.hero h1{margin:0;font-size:clamp(28px,4.5vw,38px);font-weight:800;text-wrap:balance}
+.hero p{margin:6px auto 0;max-width:56ch;color:var(--muted)}
+h2{margin:0 0 14px;font-size:22px;font-weight:800;text-wrap:balance}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:620px){.cards{grid-template-columns:1fr}}
+.card{display:flex;gap:14px;align-items:flex-start;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:14px;text-decoration:none;color:inherit;transition:border-color .15s, box-shadow .15s}
+a.card:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(27,111,168,.12)}
+a.card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.icon{width:44px;height:44px;flex-shrink:0;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
+.card.wa .icon{background:#E3F4EA;color:var(--ok)}
+.card.ai .icon{background:#F8E5EB;color:var(--pink)}
+.card h3{margin:0;font-size:17px;font-weight:700}
+.card p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.go{margin-top:8px;font-size:14px;font-weight:700;color:var(--accent)}
+.soon{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:var(--muted);background:#EEF1F4;border-radius:999px;padding:2px 10px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+.panel .lead{margin:-6px 0 18px;color:var(--muted);font-size:15px}
+form{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end}
+@media (max-width:620px){form{grid-template-columns:1fr}}
+label{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+input{width:100%;font:inherit;font-size:16px;padding:11px 12px;border:1px solid #AEB8C2;border-radius:10px;background:#fff;color:var(--ink)}
+input:focus-visible{outline:3px solid var(--accent-soft);border-color:var(--accent)}
+button{font:inherit;font-weight:700;cursor:pointer;border-radius:10px}
+.primary{background:var(--accent);color:#fff;border:0;padding:12px 22px;min-height:46px}
+.primary:hover{background:#155A89}
+.primary:disabled{opacity:.6;cursor:wait}
+.ghost{background:#fff;color:var(--accent);border:1px solid var(--line);padding:6px 12px;font-size:14px;min-height:36px}
+.ghost:hover{border-color:var(--accent)}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.hint{margin:12px 0 0;font-size:13px;color:var(--muted)}
+.hint code{background:#EEF1F4;padding:1px 6px;border-radius:5px;font-size:13px}
+.result{margin-top:18px;border-radius:12px;padding:16px 18px}
+.result.ok{background:#EEF8F2;border:1px solid #B9DFC9}
+.result.err{background:#FDF0EF;border:1px solid #F1C3BE;color:var(--err);font-weight:500}
+.result[hidden]{display:none}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 0}
+.row + .row{border-top:1px solid #CFE6D8}
+.row .k{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+.row .v{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;word-break:break-all}
+.row .acts{display:flex;gap:8px}
+.reminder{margin:10px 0 0;font-size:13px;color:var(--muted)}
+footer{text-align:center;font-size:14px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <img class="it" src="iteach-logo.png" alt="iTeach – We have the Teachnology">
+  <img class="pf" src="pincus-logo.png" alt="The Pincus Fund for Jewish Education">
+</header>
+
+<section class="hero">
+  <div class="he" dir="rtl" lang="he">ברוכים הבאים!</div>
+  <h1>Welcome to iTeach Hebrew</h1>
+  <p>Everything you need to start teaching with iTeach, in one place. Keep this page bookmarked.</p>
+</section>
+
+<section aria-labelledby="links-h">
+  <h2 id="links-h">Your links</h2>
+  <div class="cards">
+    <a class="card" data-link="teacher" href="">
+      <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8M12 16v4"></path></svg></span>
+      <span><h3>Teacher portal</h3><p>Manage your classes and follow each student's progress.</p><span class="go">Open the teacher portal →</span></span>
+    </a>
+    <a class="card" data-link="student" href="">
+      <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"></path><path d="M6 12v5c3 2 9 2 12 0v-5"></path></svg></span>
+      <span><h3>Student access</h3><p>The link your students use to log in. Share it with your class.</p><span class="go">Open the student app →</span></span>
+    </a>
+    <a class="card wa" data-link="whatsapp" href="">
+      <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></span>
+      <span><h3>WhatsApp support group</h3><p>Real people from our team, ready to answer your questions.</p><span class="go">Join the group →</span></span>
+    </a>
+    <a class="card ai" data-link="helpdesk" href="">
+      <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17.5v.01"></path></svg></span>
+      <span><h3>AI help desk</h3><p>Ask anything about the system and get an answer right away.</p><span class="go">Ask a question →</span></span>
+    </a>
+  </div>
+</section>
+
+<section class="panel" aria-labelledby="login-h">
+  <h2 id="login-h">Find your login details</h2>
+  <p class="lead">Enter the ID and passkey you received from the iTeach team to see your username and password.</p>
+  <form id="lookup" autocomplete="off">
+    <div><label for="tid">Your ID</label><input id="tid" name="tid" required spellcheck="false"></div>
+    <div><label for="pk">Passkey</label><input id="pk" name="pk" type="password" required spellcheck="false"></div>
+    <button class="primary" id="go" type="submit">Show my login</button>
+  </form>
+  <p class="hint">Example to try: ID <code>DEMO</code> with passkey <code>TRY-IT-2026</code>.</p>
+
+  <div class="result err" id="err" role="alert" hidden></div>
+  <div class="result ok" id="ok" hidden aria-live="polite">
+    <div class="row"><div><div class="k">Username</div><div class="v" id="u"></div></div><div class="acts"><button class="ghost" type="button" data-copy="u">Copy</button></div></div>
+    <div class="row"><div><div class="k">Password</div><div class="v" id="p">••••••••</div></div><div class="acts"><button class="ghost" type="button" id="reveal">Show</button><button class="ghost" type="button" data-copy="p">Copy</button></div></div>
+    <p class="reminder">Keep these details private. Need help? Write to us in the WhatsApp support group.</p>
+  </div>
+</section>
+
+<footer>Questions? WhatsApp: [+972-XX-XXX-XXXX]</footer>
+</div>
+
+<script>
+// ---- Put the real links here. An empty link shows "Link coming soon". ----
+const LINKS = {
+  teacher:  "https://teacher.iteach.co.il/",   // teacher portal
+  student:  "https://app.iteach.co.il/",       // student app
+  whatsapp: "https://chat.whatsapp.com/F5FZLGxpFirBGIkmxbw8tY",   // WhatsApp group invite
+  helpdesk: ""    // NotebookLM help desk
+};
+
+document.querySelectorAll('[data-link]').forEach(a => {
+  const url = LINKS[a.dataset.link];
+  if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; }
+  else {
+    a.removeAttribute('href');
+    const go = a.querySelector('.go');
+    go.className = 'soon'; go.textContent = 'Link coming soon';
+  }
+});
+
+// ---- Login lookup: each login is encrypted with the teacher's own passkey ----
+const enc = new TextEncoder();
+const norm = s => s.trim().toLowerCase();
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+// Encrypted logins (generated by make_credentials.py). No readable IDs, usernames or passwords.
+const LOGINS = {"v": 1, "iterations": 250000, "records": {"36295204dcbb10461d9d4af6c8b1758aa5d8da5834415fd094beffb7ee0e2e90": {"iv": "9LmuVk1CrA4XYU9a", "ct": "ds8yKpu2djpALPdVrjgmYbby3E7btjPKJSaE1ssUXpqnjU+hXyee1xqjX7c0tpe3bouAxjf5JVNcgTxiOFZ+LXGugMd9YxQsYn4RhIAEr4xmGf7cNntk0A=="}}};
+async function loadStore(){ return LOGINS; }
+async function sha256hex(text){
+  const h = await crypto.subtle.digest('SHA-256', enc.encode(text));
+  return [...new Uint8Array(h)].map(b => b.toString(16).padStart(2,'0')).join('');
+}
+async function openLogin(id, passkey){
+  const s = await loadStore();
+  const rec = s.records[await sha256hex('iteach-id:' + norm(id))];
+  if (!rec) return null;
+  const base = await crypto.subtle.importKey('raw', enc.encode(passkey.trim()), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey(
+    {name:'PBKDF2', salt:enc.encode('iteach-salt:' + norm(id)), iterations:s.iterations, hash:'SHA-256'},
+    base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+  try {
+    const plain = await crypto.subtle.decrypt({name:'AES-GCM', iv:b64(rec.iv)}, key, b64(rec.ct));
+    return JSON.parse(new TextDecoder().decode(plain));
+  } catch { return null; }
+}
+
+const $ = id => document.getElementById(id);
+let current = null, shown = false;
+$('lookup').addEventListener('submit', async e => {
+  e.preventDefault();
+  $('err').hidden = true; $('ok').hidden = true;
+  $('go').disabled = true; $('go').textContent = 'Checking…';
+  try {
+    current = await openLogin($('tid').value, $('pk').value);
+    if (!current) {
+      $('err').textContent = "We couldn't match that ID and passkey. Check both for typos and try again, or ask us in the WhatsApp group.";
+      $('err').hidden = false;
+    } else {
+      shown = false;
+      $('u').textContent = current.username;
+      $('p').textContent = '••••••••'; $('reveal').textContent = 'Show';
+      $('ok').hidden = false;
+    }
+  } catch {
+    $('err').textContent = "The login list didn't load. Refresh the page and try again.";
+    $('err').hidden = false;
+  } finally {
+    $('go').disabled = false; $('go').textContent = 'Show my login';
+  }
+});
+$('reveal').addEventListener('click', () => {
+  shown = !shown;
+  $('p').textContent = shown ? current.password : '••••••••';
+  $('reveal').textContent = shown ? 'Hide' : 'Show';
+});
+document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', async () => {
+  const val = b.dataset.copy === 'u' ? current.username : current.password;
+  try { await navigator.clipboard.writeText(val); b.textContent = 'Copied'; }
+  catch { b.textContent = 'Copy failed'; }
+  setTimeout(() => b.textContent = 'Copy', 1500);
+}));
+</script>
+</body>
+</html>
